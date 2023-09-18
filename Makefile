@@ -1,17 +1,40 @@
-SRCS_DIR = srcs
+SRCS_DIR := srcs
+IMAGES := nginx wordpress mariadb
 
-up:
+#: Start containers.
+all:
 	cd ${SRCS_DIR} && docker-compose up -d
 
-down:
+#: Stop containers.
+clean:
 	cd ${SRCS_DIR} && docker-compose down
+
+#: Stop containers and remove images, volumes, and networks.
+fclean:
+	cd ${SRCS_DIR} && docker-compose down --rmi all -v
 
 build:
 	cd ${SRCS_DIR} && docker-compose build
 
-rebuild: down build up
+nginx:
+	cd ${SRCS_DIR} && docker-compose exec -it nginx bash
 
+wordpress:
+	cd ${SRCS_DIR} && docker-compose exec -it wordpress bash
+
+#: Stop containers and remove images, volumes, networks, and build images.
+re: fclean all
+
+#: Display containers status.
 ps:
 	cd ${SRCS_DIR} && docker-compose ps
+
+#: Display all commands.
+help:
+	@grep -A1 -E "^#:" --color=auto Makefile \
+	| grep -v -- -- \
+	| sed 'N;s/\n/###/' \
+	| sed -n 's/^#: \(.*\)###\(.*\):.*/\2###\1/p' \
+	| sed -e 's/^/make /' \
 
 .PHONY: up down build rebuild ps

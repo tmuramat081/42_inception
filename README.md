@@ -6,3 +6,4 @@
 • A volume that contains your WordPress database.
 • A second volume that contains your WordPress website files.
 • A docker-network that establishes the connection between your containers. Your containers have to restart in case of a crash.
+
