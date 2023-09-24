@@ -23,7 +23,7 @@ bundles/
 vendor/pkg/
 pyenv
 Vagrantfile
-.env
 
+.env
 *.crt
 *.key

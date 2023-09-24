@@ -1,3 +1,4 @@
+NAME := inception
 SRCS_DIR := srcs
 IMAGES := nginx wordpress mariadb
 
