@@ -29,6 +29,9 @@ re: fclean all
 ps:
 	cd ${SRCS_DIR} && docker-compose ps
 
+ssl:
+	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout srcs/requirements/nginx/ssl/private.key -out srcs/requirements/nginx/ssl/certificate.crt
+
 #: Display all commands.
 help:
 	@grep -A1 -E "^#:" --color=auto Makefile \

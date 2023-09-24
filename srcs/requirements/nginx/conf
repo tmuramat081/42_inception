@@ -1,0 +1,20 @@
+events {
+	worker_connections 1024;
+}
+
+http {
+	server {
+		listen 443 ssl;
+		server_name tmuramat.com www.tmuramat.com;
+		ssl_certificate /etc/nginx/ssl/certificate.crt;
+		ssl_certificate_key /etc/nginx/ssl/private.key;
+
+		location / {
+			fastcgi_pass wordpress:9000;
+			fastcgi_index index.php;
+			fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+			include fastcgi_params;
+			return 200 'Welcome to Nginx!';
+		}
+	}
+}

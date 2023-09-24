@@ -3,13 +3,28 @@ services:
     build: ./requirements/nginx
     ports:
       - "443:443"
+    volumes:
+      - ./requirements/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - wordpress
+    networks:
+      - network
 
   wordpress:
     build: ./requirements/wordpress
     ports:
       - "9000:9000"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress
     volumes:
-      - wordpress_data:/var/www/html
+      - ./requirements/wordpress/wp_content:/var/www/html
+    depends_on:
+      - mariadb
+    networks:
+      - network
 
   mariadb:
     build: ./requirements/mariadb

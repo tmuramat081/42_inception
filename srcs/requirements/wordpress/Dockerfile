@@ -1,7 +1,10 @@
 FROM debian:bullseye-slim
 
 RUN set -eux; \
+	# upgrade packages
 	apt-get update && \
+	apt-get upgrade && \
+	# install packages
 	apt-get install --no-install-recommends -y php-fpm php-mysql wget unzip curl ca-certificates && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
@@ -17,10 +20,10 @@ RUN set -eux; \
 	rm wordpress.tar.gz; \
 	chown -R www-data:www-data /usr/src/wordpress;
 
-COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
+RUN which php-fpm7.4
+
+COPY conf /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 9000
-
-ENTRYPOINT ["/bin/bash"]
 
 CMD ["php-fpm7.4", "-F"]
