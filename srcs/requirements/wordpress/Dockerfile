@@ -15,14 +15,16 @@ RUN set -eux; \
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp && \
-	wp core download --allow-root && \
-	wp config create --dbname=wp_database --dbuser=wp_user --dbpass=password --dbhost=mariadb --allow-root && \
-	wp db create --allow-root && \
-	wp core install --url=www.tmuramat.com --title=inception --admin_user=tmuramat --admin_password=password --admin_email=mt15hydrangea@gmail.com --allow-root && \
-	chown -R www-data:www-data /usr/src/wordpress;
+	wp core download --allow-root
+
+COPY ./tools/entrypoint.sh /entrypoint.sh
+
+RUN set -eux; \
+	chmod +x /entrypoint.sh
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 9000
 
+ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["php-fpm7.4", "-F"]

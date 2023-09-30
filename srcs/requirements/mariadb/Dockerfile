@@ -10,6 +10,6 @@ RUN set -eux; \
 
 EXPOSE 3306
 
-ENTRYPOINT [ "./tools/createdb.sh" ]
+# ENTRYPOINT [ "./tools/createdb.sh" ]
 
 CMD ["mysqld"]
