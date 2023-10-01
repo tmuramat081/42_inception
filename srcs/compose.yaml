@@ -1,49 +1,63 @@
 services:
   nginx:
-    build: ./requirements/nginx
+    build:
+      context: ./requirements/nginx
     ports:
       - "443:443"
     volumes:
       - ./requirements/nginx/ssl:/etc/nginx/ssl
+      - wordpress_vol:/var/www/html
     depends_on:
       - wordpress
     networks:
-      - network
+      - inception
 
   wordpress:
-    build: ./requirements/wordpress
+    build:
+      context: ./requirements/wordpress
     ports:
       - "9000:9000"
     environment:
-      WORDPRESS_DB_HOST: mariadb:3306
-      WORDPRESS_DB_USER: ${DB_USER}
-      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
-      WORDPRESS_DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./requirements/wordpress/wp_content:/var/www/html
+      - wordpress_vol:/var/www/html
     depends_on:
       - mariadb
     networks:
-      - network
+      - inception
 
   mariadb:
-    build: ./requirements/mariadb
+    build:
+      context: ./requirements/mariadb
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_vol:/var/lib/mysql
     networks:
-      - network
+      - inception
 
 volumes:
-    wordpress_data:
-    mariadb_data:
+  wordpress_vol:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/tmuramat/data/wordpress'
+  mariadb_vol:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/tmuramat/data/mariadb'
 
 networks:
-  network:
+  inception:
     driver: bridge
