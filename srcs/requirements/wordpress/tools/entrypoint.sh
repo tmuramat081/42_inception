@@ -1,19 +1,6 @@
 #!/bin/bash
-
 set -e
-# while ! mariadbadmin ping -h"mariadb" --silent; do
-#     sleep 1
-#     counter=$((counter+1))
 
-#     if ((counter % 10 == 0)); then
-#         echo "Still waiting for mariadb to respond. Waited ${counter} seconds."
-#     fi
-
-#     if ((counter > 120)); then
-#         echo "Error: mariadb did not respond after ${counter} seconds. Exiting."
-#         exit 1
-#     fi
-# done
 wait_until_db_start() {
 	echo "Waiting for MariaDB to start."
 	local i
@@ -29,10 +16,28 @@ wait_until_db_start() {
 	done
 }
 
+db_exists() {
+	mariadb -h "${DB_HOST}" -u "${DB_USER}" -p"${DB_PASSWORD}" -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${DB_NAME}'" | grep "${DB_NAME}" &> /dev/null
+}
+
 wait_until_db_start
 
-wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --dbhost=${DB_HOST} --allow-root && \
-wp db create --allow-root & \
-wp core install --url=www.tmuramat.com --title=inception --admin_user=tmuramat --admin_password=password --admin_email=mt15hydrangea@gmail.com --allow-root
+if [ ! -f wp-config.php ]; then
+	wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --dbhost=${DB_HOST} --allow-root
+else
+	echo "wp-config.php already exists, skipping config creation."
+fi
 
-echo "wordpress installed"
+if ! db_exists; then
+	wp db create --allow-root
+else
+	echo "Database ${DB_NAME} already exists, skipping creation."
+fi
+
+if ! wp core is-installed --allow-root; then
+	wp core install --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL} --allow-root
+fi
+
+echo "wordpress installed";
+
+exit 0
