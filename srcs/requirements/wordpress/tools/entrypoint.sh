@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eu -o pipefail
 
 wait_until_db_start() {
 	echo "Waiting for MariaDB to start."
@@ -40,4 +40,4 @@ fi
 
 echo "wordpress installed";
 
-exit 0
+exec "$@"

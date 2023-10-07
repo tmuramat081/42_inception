@@ -3,9 +3,9 @@ FROM debian:bullseye-slim
 RUN set -eux; \
 	# upgrade packages
 	apt-get update && \
-	apt-get upgrade && \
+	apt-get upgrade -y && \
 	# install packages
-	apt-get install --no-install-recommends -y php-fpm php-mysql wget unzip curl ca-certificates mariadb-client && \
+	apt-get install -y --no-install-recommends -y php-fpm php-mysql wget unzip curl ca-certificates mariadb-client sendmail && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 	mkdir -p /run/php && \

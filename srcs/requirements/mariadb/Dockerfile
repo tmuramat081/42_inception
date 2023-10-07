@@ -1,8 +1,8 @@
 FROM debian:bullseye-slim
 
 RUN set -eux; \
-	apt-get update && \
-	apt-get install --no-install-recommends -y mariadb-server ca-certificates gosu && \
+	apt-get update -y && \
+	apt-get install -y --no-install-recommends -y mariadb-server ca-certificates gosu && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 	mkdir -p /run/mysqld && \
