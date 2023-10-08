@@ -1,9 +1,10 @@
 NAME := inception
 SRCS_DIR := srcs
 IMAGES := nginx wordpress mariadb
+VOLUMES_DIR := ~/data/mariadb ~/data/wordpress
 
 #: Start containers.
-all:
+all: create-dirs
 	cd ${SRCS_DIR} && docker-compose up -d
 
 #: Stop containers.
@@ -32,6 +33,11 @@ ps:
 
 ssl:
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout srcs/requirements/nginx/ssl/private.key -out srcs/requirements/nginx/ssl/certificate.crt
+
+create-dirs:
+	@for dir in $(VOLUMES_DIR); do \
+		[ -d $$dir ] || mkdir -p $$dir; \
+	done
 
 #: Display all commands.
 help:
