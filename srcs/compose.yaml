@@ -49,6 +49,18 @@ services:
     networks:
       - inception
 
+  dns:
+    build:
+      context: ./requirements/dns
+    ports:
+      - 53:53/udp
+      - 53:53/tcp
+    environment:
+      DNS_DOMAIN: ${DNS_DOMAIN}
+      DNS_IP: ${DNS_IP}
+    networks:
+      - inception
+
 volumes:
   wordpress_vol:
     driver: local

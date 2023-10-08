@@ -39,13 +39,13 @@ USE $DB_NAME;
 DELIMITER //
 CREATE PROCEDURE IF NOT EXISTS DoesUserExist()
 BEGIN
-  DECLARE userCount INT;
-  SELECT COUNT(*) INTO userCount FROM mysql.user WHERE User='$DB_USER' AND Host='%';
-  IF userCount = 0 THEN
-    CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';
-    GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'%';
-    FLUSH PRIVILEGES;
-  END IF;
+	DECLARE userCount INT;
+	SELECT COUNT(*) INTO userCount FROM mysql.user WHERE User='$DB_USER' AND Host='%';
+	IF userCount = 0 THEN
+		CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';
+		GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'%';
+		FLUSH PRIVILEGES;
+	END IF;
 END //
 DELIMITER ;
 CALL DoesUserExist();
@@ -54,11 +54,17 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';
 EOF
 }
 
+is_initialized() {
+	[ -e /var/lib/mysql/"${DB_NAME}" ]
+}
+
 _main() {
-	docker_temp_server_start
-	docker_create_database
-	echo "Now MariaDB is setup"
-	docker_temp_server_stop
+	if ! is_initialized; then
+		docker_temp_server_start
+		docker_create_database
+		echo "Now MariaDB is setup"
+		docker_temp_server_stop
+	fi
 	exec "$@"
 }
 
