@@ -59,6 +59,16 @@ services:
       DNS_DOMAIN: ${DNS_DOMAIN}
       DNS_IP: ${DNS_IP}
 
+  nextjs:
+    build:
+      context: ./requirements/nextjs
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./requirements/nextjs:/usr/src/app
+    networks:
+      - inception
+
 volumes:
   wordpress_vol:
     driver: local
