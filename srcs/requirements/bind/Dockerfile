@@ -18,4 +18,4 @@ ENTRYPOINT [ "/entrypoint.sh" ]
 
 EXPOSE 53/TCP 53/UDP
 
-CMD [ "named", "-g", "-c", "/etc/bind/named.zone", "-u", "bind" ]
+CMD [ "named", "-g", "-c", "/etc/bind/named.conf", "-u", "bind" ]

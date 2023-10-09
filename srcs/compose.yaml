@@ -49,17 +49,15 @@ services:
     networks:
       - inception
 
-  dns:
+  bind:
     build:
-      context: ./requirements/dns
+      context: ./requirements/bind
     ports:
       - 53:53/udp
       - 53:53/tcp
     environment:
       DNS_DOMAIN: ${DNS_DOMAIN}
       DNS_IP: ${DNS_IP}
-    networks:
-      - inception
 
 volumes:
   wordpress_vol:
