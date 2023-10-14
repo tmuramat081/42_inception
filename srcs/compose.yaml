@@ -73,6 +73,8 @@ services:
       context: ./requirements/redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
     networks:
       - inception
 
@@ -89,6 +91,14 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '/Users/tmuramat/data/mariadb'
+  redis_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/tmuramat/data/redis'
+    
+    
 
 networks:
   inception:

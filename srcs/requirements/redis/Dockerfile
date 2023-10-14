@@ -14,4 +14,4 @@ COPY ./conf/redis.conf etc/redis/redis.conf
 
 EXPOSE 6379
 
-CMD [ "/usr/bin/redis-server", "/etc/redis/redis.conf" ]
+CMD [ "/usr/bin/redis-server", "/etc/redis/redis.conf", "--appendonly", "yes" ]
