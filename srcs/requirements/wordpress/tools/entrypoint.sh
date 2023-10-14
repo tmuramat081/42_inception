@@ -23,7 +23,10 @@ setup_wordpress() {
 	if [ ! -f wp-config.php ]; then
 		wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --dbhost=${DB_HOST} --allow-root
 		wp config set FORCE_SSL_ADMIN true --raw --allow-root
-		sed -i "/\/\/ marker for custom code/a if ( ! empty( \$_SERVER['HTTP_X_FORWARDED_PROTO'] ) &&\n\$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ) {\n    \$_SERVER['HTTPS']='on';\n}" wp-config.php
+		sed -i "/\/\* Add any custom values between this line and the \"stop editing\" line. \*\//a if ( ! empty( \$_SERVER['HTTP_X_FORWARDED_PROTO'] ) &&\n\$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ) {\n    \$_SERVER['HTTPS']='on';\n}" wp-config.php
+		sed -i "/\/\* Add any custom values between this line and the \"stop editing\" line. \*\//a define('WP_REDIS_HOST', 'redis');\ndefine('WP_REDIS_PORT', '6379');\n" wp-config.php
+		sed -i "/\/\* Add any custom values between this line and the \"stop editing\" line. \*\//a define('FS_METHOD', 'direct');\n" wp-config.php
+		sed -i "/\/\* Add any custom values between this line and the \"stop editing\" line. \*\//a define('WP_REDIS_PASSWORD', 'redis-password');\n" wp-config.php
 	else
 		echo "wp-config.php already exists, skipping config creation."
 	fi

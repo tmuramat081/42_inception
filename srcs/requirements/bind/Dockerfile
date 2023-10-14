@@ -1,11 +1,12 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 RUN set -eux; \
 	apt-get update && \
 	apt-get upgrade -y && \
 	apt-get install --no-install-recommends -y bind9 && \
 	apt-get clean && \
-	rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/* && \
+	chown -R bind:bind /etc/bind/
 
 COPY ./conf/named.conf /etc/bind/named.conf
 COPY ./conf/named.zone /etc/bind/named.zone

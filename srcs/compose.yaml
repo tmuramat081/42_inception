@@ -67,6 +67,14 @@ services:
       - "3000:3000"
     networks:
       - inception
+  
+  redis:
+    build:
+      context: ./requirements/redis
+    ports:
+      - "6379:6379"
+    networks:
+      - inception
 
 volumes:
   wordpress_vol:
