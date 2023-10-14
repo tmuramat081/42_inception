@@ -14,16 +14,16 @@ RUN set -eux; \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
-COPY conf/package.json /package.json
+WORKDIR /usr/src
 
-COPY tools/entrypoint.sh /entrypoint.sh
+COPY ./app .
 
-RUN set -eux; \
-	chmod +x /entrypoint.sh
+RUN npm install
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+RUN npm run build && npm run export
+
+RUN npm install -g serve
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "while true; do sleep 3600; done"]
-# CMD ["npm", "start"]
+CMD ["serve", "-s", "out", "-p", "3000"]

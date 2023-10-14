@@ -9,6 +9,7 @@ services:
       - wordpress_vol:/var/www/html
     depends_on:
       - wordpress
+      - nextjs
     networks:
       - inception
 
@@ -64,8 +65,6 @@ services:
       context: ./requirements/nextjs
     ports:
       - "3000:3000"
-    volumes:
-      - ./requirements/nextjs:/usr/src/app
     networks:
       - inception
 
