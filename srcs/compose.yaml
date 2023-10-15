@@ -7,6 +7,7 @@ services:
     volumes:
       - ./requirements/nginx/ssl:/etc/nginx/ssl
       - wordpress_vol:/var/www/html
+      - adminer-data:/var/www/adminer
     depends_on:
       - wordpress
       - nextjs
@@ -78,6 +79,16 @@ services:
     networks:
       - inception
 
+  adminer:
+    build:
+      context: ./requirements/adminer
+    ports:
+      - "8080:8080"
+    volumes:
+      - adminer-data:/var/www/adminer
+    networks:
+      - inception
+
 volumes:
   wordpress_vol:
     driver: local
@@ -97,8 +108,12 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '/Users/tmuramat/data/redis'
-    
-    
+  adminer-data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/tmuramat/data/adminer'
 
 networks:
   inception:

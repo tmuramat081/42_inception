@@ -1,7 +1,7 @@
 NAME := inception
 SRCS_DIR := srcs
 IMAGES := nginx wordpress mariadb
-VOLUMES_DIR := ~/data/mariadb ~/data/wordpress ~/data/redis
+VOLUMES_DIR := ~/data/mariadb ~/data/wordpress ~/data/redis ~/data/adminer
 
 #: Start containers.
 all: create-dirs
