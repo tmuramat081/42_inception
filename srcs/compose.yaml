@@ -6,7 +6,7 @@ services:
       - "443:443"
     volumes:
       - ./requirements/nginx/ssl:/etc/nginx/ssl
-      - wordpress_vol:/var/www/html
+      - wordpress-data:/var/www/html
       - adminer-data:/var/www/adminer
     depends_on:
       - wordpress
@@ -30,7 +30,7 @@ services:
       WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
       WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
     volumes:
-      - wordpress_vol:/var/www/html
+      - wordpress-data:/var/www/html
     depends_on:
       - mariadb
     networks:
@@ -47,7 +47,7 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - mariadb_vol:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql
     networks:
       - inception
 
@@ -75,7 +75,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/data
+      - redis-data:/data
     networks:
       - inception
 
@@ -88,21 +88,32 @@ services:
       - adminer-data:/var/www/adminer
     networks:
       - inception
+  
+  vsftpd:
+    build:
+      context: ./requirements/vsftpd
+    ports:
+      - "20-21:20-21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - wordpress-data:/var/www/html
+    networks:
+      - inception
 
 volumes:
-  wordpress_vol:
+  wordpress-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
       device: '/Users/tmuramat/data/wordpress'
-  mariadb_vol:
+  mariadb-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
       device: '/Users/tmuramat/data/mariadb'
-  redis_data:
+  redis-data:
     driver: local
     driver_opts:
       type: 'none'
