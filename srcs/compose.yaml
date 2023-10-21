@@ -136,7 +136,7 @@ networks:
   inception:
     driver: bridge
   dns:
-    driver: bridge;
+    driver: bridge
     ipam:
       driver: default
       config:
