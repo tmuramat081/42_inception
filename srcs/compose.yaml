@@ -106,25 +106,25 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/tmuramat/data/wordpress'
+      device: '${VOLUME_PATH}/wordpress'
   mariadb-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/tmuramat/data/mariadb'
+      device: '${VOLUME_PATH}/mariadb'
   redis-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/tmuramat/data/redis'
+      device: '${VOLUME_PATH}/redis'
   adminer-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/tmuramat/data/adminer'
+      device: '${VOLUME_PATH}/adminer'
 
 networks:
   inception:

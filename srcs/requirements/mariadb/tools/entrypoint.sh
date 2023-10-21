@@ -26,14 +26,7 @@ docker_temp_server_stop() {
 }
 
 docker_create_database() {
-# 	mysql -uroot -hlocalhost -ppassword << EOF
-# CREATE DATABASE IF NOT EXISTS $DB_NAME;
-# CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';
-# GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'%';
-# FLUSH PRIVILEGES;
-# ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';
-# EOF
-	mysql -uroot -hlocalhost -ppassword << EOF
+mysql -uroot -hlocalhost -ppassword << EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
 USE $DB_NAME;
 DELIMITER //
