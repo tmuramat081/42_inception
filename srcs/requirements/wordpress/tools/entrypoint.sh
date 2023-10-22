@@ -23,7 +23,6 @@ setup_wordpress() {
 	if [ ! -f wp-config.php ]; then
 		wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --dbhost=${DB_HOST} --allow-root
 		sed -i "/\/\* Add any custom values between this line and the \"stop editing\" line. \*\//a \$_SERVER['HTTPS']='on';" wp-config.php
-		$ wp config set WP_DEBUG true --raw
 		wp config set FORCE_SSL_ADMIN true --raw --allow-root
 		wp config set WP_REDIS_HOST 'redis' --allow-root
 		wp config set WP_REDIS_PORT 6379 --raw --allow-root

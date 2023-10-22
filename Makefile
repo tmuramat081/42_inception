@@ -14,7 +14,7 @@ clean:
 #: Stop containers and remove images, volumes, and networks.
 fclean:
 	cd ${SRCS_DIR} && docker compose down --rmi all -v
-	${RM} ${VOLUMES_DIR}
+	${RM} -rf ${VOLUMES_DIR}
 
 build:
 	cd ${SRCS_DIR} && docker compose build
