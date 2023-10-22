@@ -3,7 +3,7 @@ FROM debian:bullseye-slim
 RUN set -eux; \
 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install --no-install-recommends -y bind9 && \
+	apt-get install --no-install-recommends -y bind9 gettext-base && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 	chown -R bind:bind /etc/bind/
