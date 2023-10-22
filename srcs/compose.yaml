@@ -62,7 +62,7 @@ services:
       - 5354:53/tcp
     environment:
       DOMAIN_NAME: ${DOMAIN_NAME}
-      HOST_IP: ${HOST_IP}
+      IP_HOST: ${IP_HOST}
     networks:
       dns:
         ipv4_address: 172.30.0.2
