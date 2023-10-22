@@ -1,0 +1,13 @@
+$ORIGIN ${DOMAIN_NAME}.
+$TTL 3600
+@	IN SOA  ns.${DOMAIN_NAME}. hostmaster.${DOMAIN_NAME}. (
+					2023100801	; serial
+					3600		; refresh (1 hour)
+					600			; retry (10 minutes)
+					86400		; expire (1 day)
+					3600		; minimum (1 hour)
+					)
+				NS	ns.${DOMAIN_NAME}.
+				A	${HOST_IP}
+ns				A	${HOST_IP}
+www				A	${HOST_IP}

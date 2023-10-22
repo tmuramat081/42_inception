@@ -59,8 +59,8 @@ services:
       - 5354:53/udp
       - 5354:53/tcp
     environment:
-      DNS_DOMAIN: ${DNS_DOMAIN}
-      DNS_IP: ${DNS_IP}
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      HOST_IP: ${HOST_IP}
     networks:
       dns:
         ipv4_address: 172.30.0.2

@@ -29,7 +29,7 @@ options {
 view "internal" {
 	recursion yes;
 
-	zone "tmuramat.com" IN {
+	zone "${DOMAIN_NAME}" IN {
 		type master;
 		file "named.zone";
 	};

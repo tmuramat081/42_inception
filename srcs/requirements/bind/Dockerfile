@@ -8,8 +8,8 @@ RUN set -eux; \
 	rm -rf /var/lib/apt/lists/* && \
 	chown -R bind:bind /etc/bind/
 
-COPY ./conf/named.conf /etc/bind/named.conf
-COPY ./conf/named.zone /etc/bind/named.zone
+COPY ./conf/named.conf.template /etc/bind/named.conf.template
+COPY ./conf/named.zone.template /etc/bind/named.zone.template
 COPY ./tools/entrypoint.sh /entrypoint.sh
 
 RUN set -eux; \
