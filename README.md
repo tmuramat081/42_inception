@@ -1,19 +1,20 @@
 ## 概要
-DockerコンテナによるWordPressサイトの構築例
+DockerコンテナによるWordPressサイトの構築例  
 [コンテナ構成図](https://drive.google.com/file/d/1IMgh776KeyKcMkrlNZrRkRfS6xgtrrsP/view?usp=sharing)
 
 ## セットアップ
-- ボリュームにマウントするディレクトリを作成
-~/data/mariadb/ ~/data/wordpress ~/data/redis ~/data/adminer
-
+- ボリュームにマウントするディレクトリを作成　　
+```
+midkr ~/data/mariadb/ ~/data/wordpress ~/data/redis ~/data/adminer
+```
 - SSL証明書の取得（X.509・自己署名）
 ```
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout srcs/requirements/nginx/ssl/private.key -out srcs/requirements/nginx/ssl/certificate.crt
 ```
 
-- ホストネームの変更
-今回は独自のDNSサーバーを使用して名前解決を行う。
-/etc/resolv.conに以下を追加
+- ホストネームの変更  
+今回は独自のDNSサーバーを使用して名前解決を行う。  
+/etc/resolv.conに以下を追加  
 ```
 echo "nameserver 172.30.0.2" | sudo resolvconf -a eth0
 ```
