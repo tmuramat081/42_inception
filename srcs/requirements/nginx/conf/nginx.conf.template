@@ -5,7 +5,7 @@ events {
 http {
 	server {
 		listen 443 ssl;
-		server_name www.tmuramat.42.fr tmuramat.42.fr;
+		server_name www.${DOMAIN_NAME} ${DOMAIN_NAME};
 		ssl_protocols TLSv1.2 TLSv1.3;
 		ssl_certificate /etc/nginx/ssl/certificate.crt;
 		ssl_certificate_key /etc/nginx/ssl/private.key;
