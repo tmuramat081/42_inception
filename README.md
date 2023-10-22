@@ -4,8 +4,9 @@ DockerコンテナによるWordPressサイトの構築例
 
 ## セットアップ
 - ボリュームにマウントするディレクトリを作成　　
-~/data/mariadb/ ~/data/wordpress ~/data/redis ~/data/adminer
-
+```
+midkr ~/data/mariadb/ ~/data/wordpress ~/data/redis ~/data/adminer
+```
 - SSL証明書の取得（X.509・自己署名）
 ```
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout srcs/requirements/nginx/ssl/private.key -out srcs/requirements/nginx/ssl/certificate.crt
