@@ -4,7 +4,7 @@ SRCS_DIR := srcs
 VOLUMES_DIR := ~/data/mariadb ~/data/wordpress ~/data/redis ~/data/adminer
 
 #: Start containers.
-all: create-dirs
+all:
 	cd ${SRCS_DIR} && docker compose up -d
 
 #: Stop containers.
@@ -14,7 +14,6 @@ clean:
 #: Stop containers and remove images, volumes, and networks.
 fclean:
 	cd ${SRCS_DIR} && docker compose down --rmi all -v
-	${RM} -rf ${VOLUMES_DIR}
 
 build:
 	cd ${SRCS_DIR} && docker compose build
