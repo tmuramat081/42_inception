@@ -28,6 +28,10 @@ setup_wordpress() {
 		wp config set WP_REDIS_PORT 6379 --raw --allow-root
 		wp config set WP_REDIS_PASSWORD 'redis-password' --allow-root
 		wp config set FS_METHOD 'direct' --allow-root
+		wp plugin install redis-cache --activate --allow-root
+		wp plugin update --all --allow-root
+		wp redis enable --allow-root
+
 	else
 		echo "wp-config.php already exists, skipping config creation."
 	fi
