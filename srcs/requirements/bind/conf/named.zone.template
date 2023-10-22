@@ -8,6 +8,6 @@ $TTL 3600
 					3600		; minimum (1 hour)
 					)
 				NS	ns.${DOMAIN_NAME}.
-				A	${HOST_IP}
-ns				A	${HOST_IP}
-www				A	${HOST_IP}
+				A	${IP_HOST}
+ns				A	${IP_HOST}
+www				A	${IP_HOST}
