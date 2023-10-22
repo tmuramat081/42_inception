@@ -1,6 +1,6 @@
 FROM debian:bullseye-slim
 
-ARG FTP_PASSWORD
+ARG FTP_PASSWORD="ftp_password"
 
 RUN set -eux; \
     apt-get update && \
@@ -12,7 +12,7 @@ COPY ./conf/vsftpd.conf /etc/vsftpd.conf
 
 RUN mkdir -p /var/www/html /var/run/vsftpd/empty
 
-RUN useradd -m ftpuser && echo "ftpuser:ftppassword" | chpasswd
+RUN useradd -m ftpuser && echo "ftpuser:${FTP_PASSWORD}" | chpasswd
 
 RUN chown -R ftpuser:ftpuser /var/www/html
 
