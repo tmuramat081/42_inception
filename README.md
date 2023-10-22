@@ -3,7 +3,7 @@ DockerコンテナによるWordPressサイトの構築例
 [コンテナ構成図](https://drive.google.com/file/d/1IMgh776KeyKcMkrlNZrRkRfS6xgtrrsP/view?usp=sharing)
 
 ## セットアップ
-- ボリュームにマウントするディレクトリを作成
+- ボリュームにマウントするディレクトリを作成　　
 ~/data/mariadb/ ~/data/wordpress ~/data/redis ~/data/adminer
 
 - SSL証明書の取得（X.509・自己署名）
