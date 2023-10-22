@@ -1,14 +1,5 @@
 NAME := inception
 SRCS_DIR := srcs
-SRCS := \
-	requirements/nginx/Dockerfile \
-	requirements/mariadb/Dockerfile \
-	requirements/wordpress/Dockerfile \
-	requirements/adminer/Dockerfile \
-	requirements/bind/Dockerfile \
-	requirements/redis/Dockerfile \
-	requirements/nextjs/Dockerfile \
-	requirements/vsftpd/Dockerfile
 
 VOLUMES_DIR := ~/data/mariadb ~/data/wordpress ~/data/redis ~/data/adminer
 
@@ -23,15 +14,10 @@ clean:
 #: Stop containers and remove images, volumes, and networks.
 fclean:
 	cd ${SRCS_DIR} && docker compose down --rmi all -v
+	${RM} ${VOLUMES_DIR}
 
 build:
 	cd ${SRCS_DIR} && docker compose build
-
-nginx:
-	cd ${SRCS_DIR} && docker compose exec -it nginx bash
-
-wordpress:
-	cd ${SRCS_DIR} && docker compose exec -it wordpress bash
 
 #: Stop containers and remove images, volumes, networks, and build images.
 re: fclean all
@@ -46,9 +32,7 @@ ssl:
 
 #: Check the coding style of all Dockerfiles.
 norm:
-	@for dir in ${SRCS}; do \
-		hadolint $$src; \
-	done
+	hdolint srcs/requirements/**/Dockerfile
 
 create-dirs:
 	@for dir in $(VOLUMES_DIR); do \
@@ -63,4 +47,4 @@ help:
 	| sed -n 's/^#: \(.*\)###\(.*\):.*/\2###\1/p' \
 	| sed -e 's/^/make /' \
 
-.PHONY: up down build rebuild ps ssl norm create-dir
+.PHONY: all clean fclean up down build rebuild ps ssl norm create-dir
