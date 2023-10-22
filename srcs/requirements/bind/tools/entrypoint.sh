@@ -13,8 +13,8 @@ _main() {
 	else
 		echo "rndc.key already exists, skipping config creation."
 	fi
-	envsubst '$DOMAIN_NAME,$HOST_IP' < /etc/bind/named.conf.template > /etc/bind/named.conf
-	envsubst '$DOMAIN_NAME,$HOST_IP' < /etc/bind/named.zone.template > /etc/bind/named.zone
+	envsubst '$DOMAIN_NAME,$IP_HOST' < /etc/bind/named.conf.template > /etc/bind/named.conf
+	envsubst '$DOMAIN_NAME,$IP_HOST' < /etc/bind/named.zone.template > /etc/bind/named.zone
 	mkdir -p /run/named/
 	chown bind:bind /run/named/
 	echo "dns installed";
