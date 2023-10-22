@@ -12,9 +12,9 @@ midkr ~/data/mariadb/ ~/data/wordpress ~/data/redis ~/data/adminer
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout srcs/requirements/nginx/ssl/private.key -out srcs/requirements/nginx/ssl/certificate.crt
 ```
 
-- ホストネームの変更
-今回は独自のDNSサーバーを使用して名前解決を行う。
-/etc/resolv.conに以下を追加
+- ホストネームの変更  
+今回は独自のDNSサーバーを使用して名前解決を行う。  
+/etc/resolv.conに以下を追加  
 ```
 echo "nameserver 172.30.0.2" | sudo resolvconf -a eth0
 ```
