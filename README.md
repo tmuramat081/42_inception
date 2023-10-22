@@ -1,5 +1,6 @@
 ## 概要
-DockerコンテナによるWordPressサイトの構築例  
+DockerコンテナによるWordPressサイトの構築  
+![image](https://github.com/tmuramat081/42_inception/assets/91453112/5bef30cb-1d01-4bb2-88b0-2c33ecddde5f)
 [コンテナ構成図](https://drive.google.com/file/d/1IMgh776KeyKcMkrlNZrRkRfS6xgtrrsP/view?usp=sharing)
 
 ## セットアップ
