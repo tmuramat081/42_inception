@@ -1,44 +1,44 @@
 NAME := inception
 SRCS_DIR := srcs
 SRCS := \
-		requirements/nginx/Dockerfile \
-		requirements/mariadb/Dockerfile \
-		requirements/wordpress/Dockerfile \
-		requirements/adminer/Dockerfile \
-		requirements/bind/Dockerfile \
-		requirements/redis/Dockerfile \
-		requirements/nextjs/Dockerfile \
-		requirements/vsftpd/Dockerfile
+	requirements/nginx/Dockerfile \
+	requirements/mariadb/Dockerfile \
+	requirements/wordpress/Dockerfile \
+	requirements/adminer/Dockerfile \
+	requirements/bind/Dockerfile \
+	requirements/redis/Dockerfile \
+	requirements/nextjs/Dockerfile \
+	requirements/vsftpd/Dockerfile
 
 VOLUMES_DIR := ~/data/mariadb ~/data/wordpress ~/data/redis ~/data/adminer
 
 #: Start containers.
 all: create-dirs
-	cd ${SRCS_DIR} && docker-compose up -d
+	cd ${SRCS_DIR} && docker compose up -d
 
 #: Stop containers.
 clean:
-	cd ${SRCS_DIR} && docker-compose down
+	cd ${SRCS_DIR} && docker compose down
 
 #: Stop containers and remove images, volumes, and networks.
 fclean:
-	cd ${SRCS_DIR} && docker-compose down --rmi all -v
+	cd ${SRCS_DIR} && docker compose down --rmi all -v
 
 build:
-	cd ${SRCS_DIR} && docker-compose build
+	cd ${SRCS_DIR} && docker compose build
 
 nginx:
-	cd ${SRCS_DIR} && docker-compose exec -it nginx bash
+	cd ${SRCS_DIR} && docker compose exec -it nginx bash
 
 wordpress:
-	cd ${SRCS_DIR} && docker-compose exec -it wordpress bash
+	cd ${SRCS_DIR} && docker compose exec -it wordpress bash
 
 #: Stop containers and remove images, volumes, networks, and build images.
 re: fclean all
 
 #: Display containers status.
 ps:
-	cd ${SRCS_DIR} && docker-compose ps
+	cd ${SRCS_DIR} && docker compose ps
 
 #: Create X.509 SSL certificate.
 ssl:
