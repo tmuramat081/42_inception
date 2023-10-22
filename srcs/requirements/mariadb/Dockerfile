@@ -9,6 +9,7 @@ RUN set -eux; \
 	chown -R mysql:mysql /run/mysqld
 
 COPY ./conf/my.cnf /etc/mysql/my.cnf
+
 COPY ./tools/entrypoint.sh /entrypoint.sh
 
 RUN set -eux; \

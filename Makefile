@@ -1,6 +1,15 @@
 NAME := inception
 SRCS_DIR := srcs
-IMAGES := nginx wordpress mariadb
+SRCS := \
+		requirements/nginx/Dockerfile \
+		requirements/mariadb/Dockerfile \
+		requirements/wordpress/Dockerfile \
+		requirements/adminer/Dockerfile \
+		requirements/bind/Dockerfile \
+		requirements/redis/Dockerfile \
+		requirements/nextjs/Dockerfile \
+		requirements/vsftpd/Dockerfile
+
 VOLUMES_DIR := ~/data/mariadb ~/data/wordpress ~/data/redis ~/data/adminer
 
 #: Start containers.
@@ -31,8 +40,15 @@ re: fclean all
 ps:
 	cd ${SRCS_DIR} && docker-compose ps
 
+#: Create X.509 SSL certificate.
 ssl:
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout srcs/requirements/nginx/ssl/private.key -out srcs/requirements/nginx/ssl/certificate.crt
+
+#: Check the coding style of all Dockerfiles.
+norm:
+	@for dir in ${SRCS}; do \
+		hadolint $$src; \
+	done
 
 create-dirs:
 	@for dir in $(VOLUMES_DIR); do \
@@ -47,4 +63,4 @@ help:
 	| sed -n 's/^#: \(.*\)###\(.*\):.*/\2###\1/p' \
 	| sed -e 's/^/make /' \
 
-.PHONY: up down build rebuild ps
+.PHONY: up down build rebuild ps ssl norm create-dir
