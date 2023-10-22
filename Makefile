@@ -4,26 +4,26 @@ SRCS_DIR := srcs
 VOLUMES_DIR := ~/data/mariadb ~/data/wordpress ~/data/redis ~/data/adminer
 
 #: Start containers.
-all:
-	cd ${SRCS_DIR} && docker compose up -d
+all: create-dirs
+	docker compose up -d
 
 #: Stop containers.
-clean:
-	cd ${SRCS_DIR} && docker compose down
+down:
+	docker compose down
 
 #: Stop containers and remove images, volumes, and networks.
-fclean:
-	cd ${SRCS_DIR} && docker compose down --rmi all -v
+clean:
+	docker compose down --rmi all -v
 
 build:
-	cd ${SRCS_DIR} && docker compose build
+	docker compose build
 
 #: Stop containers and remove images, volumes, networks, and build images.
-re: fclean all
+re: clean all
 
 #: Display containers status.
 ps:
-	cd ${SRCS_DIR} && docker compose ps
+	docker compose ps
 
 #: Create X.509 SSL certificate.
 ssl:
