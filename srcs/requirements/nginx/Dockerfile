@@ -2,7 +2,7 @@ FROM nginx:1.24.0
 
 RUN set -eux; \
 	apt-get update && \
-	apt-get install --no-install-recommends -y bind9 gettext-base && \
+	apt-get install --no-install-recommends -y gettext-base && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/www/adminer
