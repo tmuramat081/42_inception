@@ -28,10 +28,6 @@ setup_wordpress() {
 		wp config set WP_REDIS_PORT 6379 --raw --allow-root
 		wp config set WP_REDIS_PASSWORD 'redis-password' --allow-root
 		wp config set FS_METHOD 'direct' --allow-root
-		wp plugin install redis-cache --activate --allow-root
-		wp plugin update --all --allow-root
-		wp redis enable --allow-root
-
 	else
 		echo "wp-config.php already exists, skipping config creation."
 	fi
@@ -45,6 +41,9 @@ setup_wordpress() {
 	if ! wp core is-installed --allow-root; then
 		wp core install --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL} --allow-root
 	fi
+	wp plugin install redis-cache --activate --allow-root
+	wp plugin update --all --allow-root
+	wp redis enable --allow-root
 }
 
 _main() {
