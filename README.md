@@ -1,6 +1,6 @@
 ## 概要
 DockerコンテナによるWordPressサイトの構築  
-![Inception drawio](https://github.com/tmuramat081/42_inception/assets/91453112/26f42137-602b-41f5-a994-85969d5d4f31)
+![Inception drawio](https://github.com/tmuramat081/42_inception/assets/91453112/4da9ffe8-1331-4363-b1b5-970046a935d7)
 [コンテナ構成図](https://drive.google.com/file/d/1IMgh776KeyKcMkrlNZrRkRfS6xgtrrsP/view?usp=sharing)
 
 ## セットアップ
