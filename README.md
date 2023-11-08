@@ -1,5 +1,5 @@
 ## 概要
-DockerコンテナによるWordPressサイトの構築  
+DockerコンテナによるWordPressの構築サンプル  
 ![Inception drawio](https://github.com/tmuramat081/42_inception/assets/91453112/4da9ffe8-1331-4363-b1b5-970046a935d7)
 [コンテナ構成図](https://drive.google.com/file/d/1IMgh776KeyKcMkrlNZrRkRfS6xgtrrsP/view?usp=sharing)
 
@@ -69,7 +69,7 @@ DNSサーバー
 
 ## redis
 - インメモリキャッシュ
-- 永続化の方法としてRDBとAOFの二種類がある
+- 永続化の方法としてRDBとAOFの二種類がある　　
 RDBはスナップショットを保存、AODは書き込みコマンド単位で保存
 ```
 redis-cli -h [hostname] -p [port] -a [password]
@@ -79,7 +79,7 @@ KEYS *
 ```
 
 ## NestJS
-- 静的サイトのホスティング
+- 静的サイトのホスティング　　
 - nginxからリバースプロキシで接続される
 
 ## vsfpd
